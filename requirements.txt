@@ -10,3 +10,4 @@ pydantic==2.9.2
 lxml==5.3.0
 matplotlib==3.8.0
 unstructured[all-docs]
+streamlit 
