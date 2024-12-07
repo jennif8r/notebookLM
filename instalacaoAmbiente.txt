@@ -1,4 +1,2 @@
-!apt-get update
-!apt-get install -y poppler-utils
-!sudo apt update
-!sudo apt install ffmpeg
+sudo apt-get update
+sudo apt-get install -y poppler-utils ffmpeg
