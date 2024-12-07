@@ -5,7 +5,6 @@ import os
 
 def extract_text_from_file(file_path, file_type):
     if file_type == 'pdf':
-        # Usa apenas o modo "fast" para evitar OCR
         elements = partition_pdf(filename=file_path, strategy="fast")
     elif file_type == 'txt':
         elements = partition_text(filename=file_path)
@@ -37,27 +36,14 @@ def create_chunks(text, chunk_size=50):
 
 def process_file(file_path, file_type):
     if not os.path.isfile(file_path):
-        print("Arquivo não encontrado.")
-        return
+        raise FileNotFoundError("Arquivo não encontrado.")
     
     if file_type in ['pdf', 'txt']:
         text = extract_text_from_file(file_path, file_type)
     elif file_type == 'mp3':
         text = transcribe_audio(file_path)
     else:
-        print(f"Tipo de arquivo '{file_type}' não suportado.")
-        return
+        raise ValueError(f"Tipo de arquivo '{file_type}' não suportado.")
     
     chunks = create_chunks(text)
-
-    print("Chunks gerados:")
-    if len(chunks) == 0:
-        print("Nenhum chunk gerado. O arquivo pode não conter texto extraível.")
-    for ch in chunks:
-        print(ch)
-
-# Substitua pelo caminho do arquivo no seu ambiente
-file_path = os.path.join(os.getcwd(), "Normas (1).pdf")
-file_type = "pdf"  # Pode ser "pdf", "txt" ou "mp3"
-
-process_file(file_path, file_type)
+    return chunks

@@ -24,8 +24,16 @@ def main():
         # Processando o arquivo
         try:
             st.write("Processando o arquivo...")
-            process_file(file_path, file_extension)
+            chunks = process_file(file_path, file_extension)  # Chamando a função do backend
+            
             st.success("Arquivo processado com sucesso!")
+            st.write("### Resultado:")
+            
+            for chunk in chunks:
+                st.write(f"**Texto:** {chunk['text']}")
+                st.write(f"**Metadados:** {chunk['metadata']}")
+                st.write("---")
+        
         except Exception as e:
             st.error(f"Erro ao processar o arquivo: {str(e)}")
         finally:
